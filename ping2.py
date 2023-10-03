@@ -43,8 +43,8 @@ def spoof_reply(pkt):
         src=pkt[1].src
         #store the original packet's source
 
-        #seq = pkt[2].seq
-        seq = 22
+        seq = pkt[2].seq
+        #seq = 22
         #store the original packet's sequence
 
         id = pkt[2].id
@@ -54,13 +54,11 @@ def spoof_reply(pkt):
         load=pkt[3].load
         #store the original packet's load
         ip = IP(src=dst, dst=src)
-        ip.show2();
         icmp = ICMP(type=0, id=id, seq=seq)
-        icmp.show2()
         reply = ip/icmp/load
         #construct the reply packet based on details derived from the
         #original packet, but make sure to flip dst and src
-        
+        reply.show2()
         send(reply)
      #   time.sleep(3)
      #   send(reply)
