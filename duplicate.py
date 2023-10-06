@@ -2,11 +2,7 @@ from scapy.all import *
 from netfilterqueue import NetfilterQueue
 import time
 
-s = 0
-i = 100
 def spoof_reply(packet):
-    global i
-    global s
     pkt = IP(packet.get_payload())
     #if (pkt[2].type == 8):
     #check if the ICMP is a request
@@ -30,23 +26,13 @@ def spoof_reply(packet):
         #store the original packet's load
     ip = IP(src=dst, dst=src)
     icmp = ICMP(type=0, id=id, seq=seq)
-    icmp2 = ICMP(type=0, id=id, seq=i)
-    i = i + 1
+    icmp2 = ICMP(type=0, id=id, seq=seq)
     reply = ip/icmp/load
     #reply2 = ip/icmp2/load
     #nbPacketRcv > nbPacketSent = display packet forged
     reply2 = ip/icmp2/load
+    send(reply)
     send(reply2)
-    if s == 1 and i == 102:
-        send(ip/ICMP(type=0, id=id, seq=1)/load)
-    elif s == 0 and i == 102:
-        print(i)
-        s = 1
-    elif i == 105:
-        i = 100
-    else:
-        print("sss")
-        send(reply)
      #   time.sleep(3)
      #   send(reply)
 
