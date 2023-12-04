@@ -7,7 +7,7 @@ def spoof_reply(packet):
     #if (pkt[2].type == 8):
     #check if the ICMP is a request
 
-    dst=pkt[0].dst
+    dst="192.168.56.1"#pkt[0].dst
     #pkt.show2()
         #store the original packet's destination
 
