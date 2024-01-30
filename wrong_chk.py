@@ -4,26 +4,14 @@ import time
 
 def spoof_reply(packet):
     pkt = IP(packet.get_payload())
-    #if (pkt[2].type == 8):
-    #check if the ICMP is a request
-
     dst=pkt[0].dst
     pkt.show2()
-        #store the original packet's destination
-
     src=pkt[0].src
-        #store the original packet's source
-
     seq = pkt[1].seq
-        #seq = 22
-        #store the original packet's sequence
-
+    #seq = 22
     id = pkt[1].id
-        #id = 1111
-        #store the original packet's id
-
+    #id = 1111
     load=pkt[2].load
-        #store the original packet's load
     ip = IP(src=dst, dst=src)
     icmp = ICMP(type=0, id=id, seq=seq)
     icmp.chksum = 0x0000
